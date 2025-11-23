@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulado - Liderança, Percepção e Motivação</title>
+    <title>Simulado - Psicopatologia e Exame Psíquico</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -16,7 +16,7 @@
         :root {
             --primary: #2c3e50;
             --secondary: #3498db;
-            --accent: #1abc9c;
+            --accent: #9b59b6; /* Roxo para psicologia */
             --light: #ecf0f1;
             --dark: #2c3e50;
             --correct: #2ecc71;
@@ -42,7 +42,7 @@
         }
         
         header {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             padding: 25px 30px;
             text-align: center;
             color: white;
@@ -156,8 +156,8 @@
         }
         
         .option.selected {
-            border-color: var(--secondary);
-            background: rgba(52, 152, 219, 0.1);
+            border-color: var(--accent);
+            background: rgba(155, 89, 182, 0.1);
         }
         
         .option-letter {
@@ -248,14 +248,20 @@
         }
         
         .result-item {
-            padding: 15px;
+            padding: 20px;
             border-bottom: 1px solid #ddd;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            gap: 10px;
         }
         
         .result-item:last-child {
             border-bottom: none;
+        }
+
+        .result-item-header {
+            display: flex;
+            align-items: center;
         }
         
         .result-status {
@@ -277,6 +283,16 @@
         
         .incorrect .result-status {
             background: var(--incorrect);
+        }
+
+        .explanation-text {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent);
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: #555;
+            border-radius: 0 5px 5px 0;
         }
         
         .restart-btn {
@@ -314,13 +330,13 @@
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-brain"></i> Simulado - Liderança, Percepção e Motivação</h1>
-            <p>Avalie seus conhecimentos sobre Liderança, Percepção e Motivação no ambiente de trabalho.</p>
+            <h1><i class="fas fa-brain"></i> Simulado - Psicopatologia</h1>
+            <p>Avalie seus conhecimentos sobre Exame Psíquico, Estruturas Clínicas e Fenomenologia.</p>
         </header>
         
         <div class="info-bar">
-            <div><i class="fas fa-users"></i> Comportamento Organizacional</div>
-            <div><i class="fas fa-graduation-cap"></i> 20 Questões Objetivas</div>
+            <div><i class="fas fa-user-md"></i> Psicologia Clínica</div>
+            <div><i class="fas fa-list-ol"></i> 30 Questões Objetivas</div>
         </div>
         
         <div class="progress-container">
@@ -348,293 +364,258 @@
     </div>
 
     <script>
-        // Banco de questões
+        // Banco de questões - Psicopatologia
         const questions = [
             {
                 type: "objective",
-                question: "Qual estilo de liderança é caracterizado pela centralização das decisões no líder?",
-                options: [
-                    "Democrática",
-                    "Liberal",
-                    "Transformacional",
-                    "Autocrática",
-                    "Transacional"
-                ],
-                answer: 3, // D
-                userAnswer: null,
-                level: "Liderança"
+                question: "Durante uma entrevista clínica, um paciente de 35 anos relata: 'Doutor, eu vejo claramente um homem de chapéu preto sentado naquela cadeira vazia, ele fala que eu sou um fracasso'. O paciente demonstra medo visível. Ao exame físico, não há nenhum objeto na cadeira. Fenomenologicamente, essa alteração da sensopercepção é classificada como:",
+                options: ["Ilusão.", "Alucinose.", "Alucinação verdadeira.", "Pseudoalucinação."],
+                answer: 2, // C
+                explanation: "Na alucinação verdadeira, a percepção é clara, projetada no espaço externo (cadeira), e o paciente crê na sua realidade (sem crítica). A pseudoalucinação seria interna; a ilusão exigiria um objeto real distorcido.",
+                level: "Sensopercepção"
             },
             {
                 type: "objective",
-                question: "A liderança que se baseia em um sistema de recompensas e punições é a:",
-                options: [
-                    "Democrática",
-                    "Transacional",
-                    "Transformacional",
-                    "Liberal",
-                    "Autocrática"
-                ],
+                question: "A psicopatologia pode ser compreendida sob diversas perspectivas teóricas. A abordagem que foca na 'existência do ser', compreendendo o adoecimento mental como uma restrição da liberdade e um modo específico de 'ser-no-mundo' (Dasein), analisando as dimensões de espacialidade e temporalidade, refere-se à:",
+                options: ["Psicopatologia Cognitivista.", "Psicopatologia Fenomenológica.", "Psicopatologia Comportamental.", "Psicopatologia Biológica."],
                 answer: 1, // B
-                userAnswer: null,
-                level: "Liderança"
+                explanation: "Esta abordagem (Boss, Heidegger) foca no 'ser-no-mundo', na liberdade e nas categorias existenciais como tempo e espaço, buscando compreender a vivência subjetiva do paciente.",
+                level: "Teorias"
             },
             {
                 type: "objective",
-                question: "Segundo o material, qual é a principal função da liderança?",
-                options: [
-                    "Controlar rigidamente as tarefas da equipe.",
-                    "Manter a equipe satisfeita com o mínimo esforço.",
-                    "Ignorar os objetivos organizacionais para focar no bem-estar.",
-                    "Forçar a equipe a atingir metas a qualquer custo.",
-                    "Catalisar as energias do grupo para atingir e superar os objetivos."
-                ],
-                answer: 4, // E
-                userAnswer: null,
-                level: "Liderança"
-            },
-            {
-                type: "objective",
-                question: "Qual das seguintes características é apresentada como uma exigência para um líder?",
-                options: [
-                    "Insegurança",
-                    "Passividade",
-                    "Autoconfiança",
-                    "Desonestidade",
-                    "Conformismo"
-                ],
+                question: "Um estudante de psicologia está aprendendo sobre os critérios de normalidade. Ele observa que o conceito de 'normal' varia conforme a cultura e o momento histórico. Ao estudar o critério estatístico, ele identifica que a principal limitação desse modelo é:",
+                options: ["Considerar que a saúde é apenas a ausência de sintomas físicos.", "Definir normalidade baseada em um ideal inalcançável de perfeição.", "Não distinguir entre o que é frequente/comum e o que é necessariamente saudável (ex: cáries são frequentes, mas não saudáveis).", "Focar excessivamente na funcionalidade do indivíduo no trabalho."],
                 answer: 2, // C
-                userAnswer: null,
-                level: "Liderança"
+                explanation: "O critério estatístico (curva de Gauss) falha ao não diferenciar desvios positivos (genialidade) de negativos, ou frequências 'doentes' (ex: ansiedade generalizada em uma população) de saúde.",
+                level: "Normalidade"
             },
             {
                 type: "objective",
-                question: "Incentivar a equipe a \"pensar fora da caixa\" e buscar a autorrealização são traços da liderança:",
-                options: [
-                    "Autocrática",
-                    "Transacional",
-                    "Transformacional",
-                    "Liberal",
-                    "Democrática"
-                ],
-                answer: 2, // C
-                userAnswer: null,
-                level: "Liderança"
-            },
-            {
-                type: "objective",
-                question: "O que é percepção no contexto organizacional?",
-                options: [
-                    "Um fato objetivo e igual para todos.",
-                    "Um processo de interpretar as impressões sensoriais para dar sentido ao ambiente.",
-                    "Uma forma de adivinhar os pensamentos dos colegas.",
-                    "Apenas a visão, sem influência de outros sentidos.",
-                    "Um erro de julgamento que deve ser evitado a todo custo."
-                ],
+                question: "No contexto da semiologia psiquiátrica, a consciência é a função basilar. Um paciente dá entrada na emergência apresentando rebaixamento leve da consciência, respondendo a chamados verbais com lentidão e dificuldade de compreensão, mas despertável. Qual o termo técnico para este estado, que se situa entre a lucidez e a sonolência excessiva?",
+                options: ["Coma.", "Obnubilação.", "Hipervigilância.", "Transe."],
                 answer: 1, // B
-                userAnswer: null,
-                level: "Percepção"
+                explanation: "Obnubilação é o rebaixamento leve a moderado da consciência, com lentificação e dificuldade de compreensão, mas ainda não é estupor ou coma.",
+                level: "Consciência"
             },
             {
                 type: "objective",
-                question: "Valores e experiências anteriores são exemplos de qual fator que influencia a percepção?",
-                options: [
-                    "Fatores do Objeto",
-                    "Fatores da Situação",
-                    "Fatores do Percebedor",
-                    "Fatores Culturais",
-                    "Fatores Ambientais"
-                ],
+                question: "Sobre os transtornos do espectro da esquizofrenia, os sintomas são frequentemente divididos em positivos e negativos. Assinale a alternativa que apresenta, respectivamente, um sintoma positivo e um sintoma negativo.",
+                options: ["Alucinação e Delírio.", "Embotamento afetivo e Alogia.", "Delírio e Avolição (falta de vontade).", "Isolamento social e Desorganização do pensamento."],
                 answer: 2, // C
-                userAnswer: null,
-                level: "Percepção"
+                explanation: "Delírios e alucinações são sintomas positivos (acréscimo/distorção da realidade). Avolição, alogia e embotamento são sintomas negativos (déficit/perda de funções).",
+                level: "Esquizofrenia"
             },
             {
                 type: "objective",
-                question: "Formar uma opinião sobre uma pessoa baseando-se em generalizações sobre o seu gênero é um exemplo de:",
-                options: [
-                    "Efeito de Halo",
-                    "Projeção",
-                    "Estereótipo",
-                    "Percepção Seletiva",
-                    "Efeito de Primazia"
-                ],
+                question: "Analise o seguinte caso: Um paciente apresenta um quadro de humor expansivo, grandiosidade, redução da necessidade de sono e fuga de ideias que dura há 10 dias, causando grave prejuízo no trabalho e necessitando de internação. Não há histórico de depressão. O diagnóstico mais provável, segundo os critérios de classificação (CID/DSM), é:",
+                options: ["Transtorno Bipolar Tipo II.", "Transtorno Bipolar Tipo I.", "Ciclotimia.", "Transtorno Delirante."],
+                answer: 1, // B
+                explanation: "A presença de um episódio maníaco (grave, duradouro, com prejuízo funcional) define o Bipolar Tipo I. O Tipo II exige apenas hipomania (sem prejuízo grave) e depressão.",
+                level: "Transtornos de Humor"
+            },
+            {
+                type: "objective",
+                question: "Na psicopatologia psicanalítica, Freud descreve o funcionamento do aparelho psíquico. O 'Processo Primário' é caracterizado por:",
+                options: ["Energia ligada, pensamento lógico e adiamento da satisfação.", "Energia livre, busca imediata de satisfação e ausência de contradição (típico do Inconsciente).", "Predomínio do princípio da realidade sobre o princípio do prazer.", "Funcionamento exclusivo do Superego na regulação moral."],
+                answer: 1, // B
+                explanation: "O Processo Primário (Freud) rege o Inconsciente, onde a energia flui livremente buscando prazer imediato, sem lógica temporal ou contradição (ex: sonhos).",
+                level: "Psicanálise"
+            },
+            {
+                type: "objective",
+                question: "Diferenciar Ilusão de Alucinação é crucial no Exame do Estado Mental. A definição correta de Ilusão é:",
+                options: ["Percepção de um objeto que não existe no mundo real.", "Percepção falseada ou distorcida de um objeto real presente no campo sensorial.", "Criação de uma imagem mental interna sem projeção espacial.", "Percepção auditiva de vozes de comando sem estímulo externo."],
+                answer: 1, // B
+                explanation: "A ilusão é uma distorção perceptiva (percepção falseada) que exige um objeto real (ex: ver um arbusto e achar que é um monstro). Alucinação não tem objeto real.",
+                level: "Sensopercepção"
+            },
+            {
+                type: "objective",
+                question: "Um paciente relata que tem certeza absoluta de que está sendo perseguido pela CIA e que implantaram um chip em seu cérebro. Apesar de todas as evidências contrárias apresentadas pela família, ele mantém essa convicção inabalável. Essa alteração é uma perturbação do:",
+                options: ["Curso do pensamento (Fuga de ideias).", "Conteúdo do pensamento (Delírio).", "Sensopercepção (Alucinação).", "Memória (Confabulação)."],
+                answer: 1, // B
+                explanation: "O delírio é uma alteração do juízo de realidade que afeta o conteúdo do pensamento, caracterizado por uma crença falsa, irredutível e inabalável.",
+                level: "Pensamento"
+            },
+            {
+                type: "objective",
+                question: "No Transtorno Bipolar Tipo II, o diagnóstico diferencial com o Tipo I se dá principalmente pela presença de:",
+                options: ["Episódios de Mania plena com sintomas psicóticos.", "Apenas episódios depressivos, sem nunca haver elevação de humor.", "Episódios de Hipomania (menos graves que a mania) alternados com Depressão Maior.", "Sintomas exclusivos de ansiedade e pânico."],
                 answer: 2, // C
-                userAnswer: null,
-                level: "Percepção"
+                explanation: "O marcador do Tipo II é a hipomania (menos grave que a mania, sem internação) e necessariamente episódios depressivos. Se houver Mania plena, vira Tipo I.",
+                level: "Transtornos de Humor"
             },
             {
                 type: "objective",
-                question: "Um gestor que acredita que um funcionário é excelente em todas as tarefas só porque ele se veste bem está sob a influência do:",
-                options: [
-                    "Efeito de Halo",
-                    "Efeito de Recência",
-                    "Estereótipo",
-                    "Projeção",
-                    "Percepção Seletiva"
-                ],
+                question: "A 'Alucinose' diferencia-se da 'Alucinação Verdadeira' principalmente porque na Alucinose:",
+                options: ["O paciente não tem crítica sobre o fenômeno (acredita que é real).", "Ocorre apenas no tato e olfato.", "O paciente preserva a crítica e o juízo de realidade, reconhecendo o fenômeno como estranho/patológico.", "É sempre causada por uso de substâncias ilícitas."],
+                answer: 2, // C
+                explanation: "Na alucinose, a percepção existe (ex: visual), mas o indivíduo sabe que não é real, mantendo o juízo crítico (comum em lesões orgânicas ou intoxicações).",
+                level: "Sensopercepção"
+            },
+            {
+                type: "objective",
+                question: "Segundo a perspectiva da Psicopatologia Fenomenológica apresentada (ex: Boss, Heidegger), na esquizofrenia ocorre uma alteração na 'temporalidade'. Isso significa que:",
+                options: ["O paciente perde a memória de curto prazo.", "O paciente vive focado excessivamente no futuro e no planejamento.", "As dimensões temporais estão restritas, muitas vezes com o paciente 'preso' no presente ou sem projeção de vir-a-ser.", "O paciente tem uma percepção acelerada do tempo (taquipsiquismo)."],
+                answer: 2, // C
+                explanation: "Na psicose, segundo a fenomenologia, o futuro se fecha e o paciente perde o devir (vir-a-ser), ficando preso na imutabilidade do presente ou passado, perdendo a projeção existencial.",
+                level: "Fenomenologia"
+            },
+            {
+                type: "objective",
+                question: "No exame psíquico, ao avaliar a 'Atenção', o termo 'Tenacidade' refere-se à:",
+                options: ["Capacidade de mudar o foco de um estímulo para outro (vigilância).", "Capacidade de manter/fixar a atenção em determinado objeto ou tarefa.", "Perda total da capacidade de atenção.", "Aumento global da atenção a todos os estímulos simultaneamente."],
+                answer: 1, // B
+                explanation: "Tenacidade é a capacidade de fixar a atenção em algo. Vigilância é a capacidade de mudar o foco para novos estímulos.",
+                level: "Atenção"
+            },
+            {
+                type: "objective",
+                question: "O Transtorno Esquizoafetivo é caracterizado por:",
+                options: ["Sintomas puramente afetivos (apenas depressão ou mania).", "Sintomas puramente esquizofrênicos (apenas delírios e alucinações).", "A coocorrência de um episódio de humor (depressivo ou maníaco) concomitante com sintomas da fase ativa da esquizofrenia.", "Uma forma leve de esquizofrenia que não exige medicação."],
+                answer: 2, // C
+                explanation: "O Esquizoafetivo combina os critérios A da esquizofrenia com um episódio de humor maior de forma ininterrupta e sobreposta.",
+                level: "Diagnóstico Diferencial"
+            },
+            {
+                type: "objective",
+                question: "A Anamnese é parte fundamental da avaliação psicopatológica. Sobre a identificação do paciente, é CORRETO afirmar:",
+                options: ["A idade e o estado civil são dados irrelevantes para o diagnóstico psiquiátrico.", "A naturalidade/nacionalidade pode indicar riscos associados à imigração e ruptura de laços culturais.", "A profissão não tem correlação com saúde mental ou riscos de burnout.", "Deve-se evitar perguntar sobre escolaridade para não constranger o paciente."],
+                answer: 1, // B
+                explanation: "A anamnese deve considerar fatores culturais, sociais e de migração como estressores psíquicos relevantes, além de contexto para compreender a linguagem e vivência.",
+                level: "Anamnese"
+            },
+            {
+                type: "objective",
+                question: "Segundo a CID-11 e o DSM-5, a Catatonia é uma síndrome psicomotora que pode estar presente na esquizofrenia. Um dos seus sinais característicos é:",
+                options: ["Logorreia (fala excessiva).", "Flexibilidade cérea (manutenção de posturas impostas) ou imobilidade/estupor.", "Hipervigilância constante.", "Obsessão por limpeza."],
+                answer: 1, // B
+                explanation: "A catatonia envolve alterações motoras qualitativas como imobilidade, postura fixa (flexibilidade cérea), negativismo ou agitação psicomotora.",
+                level: "Psicomotricidade"
+            },
+            {
+                type: "objective",
+                question: "Na estrutura da personalidade segundo a Psicanálise (2ª Tópica), o Ego (Eu) tem a função de:",
+                options: ["Buscar a satisfação imediata das pulsões sem considerar as consequências.", "Representar as leis morais e a consciência ética (culpa).", "Mediar as exigências do Id, as restrições do Superego e a realidade externa.", "Armazenar as memórias reprimidas traumáticas sem acesso à consciência."],
+                answer: 2, // C
+                explanation: "O Ego opera pelo princípio da realidade, mediando os desejos pulsionais do Id e as proibições morais do Superego para agir no mundo real.",
+                level: "Psicanálise"
+            },
+            {
+                type: "objective",
+                question: "Um paciente apresenta delírios de ciúmes e perseguição há 3 meses. Ele funciona bem no trabalho e socialmente, exceto quando o assunto toca no tema do delírio. Não tem alucinações, nem comportamento desorganizado ou sintomas negativos. O diagnóstico mais provável é:",
+                options: ["Esquizofrenia Paranoide.", "Transtorno Delirante.", "Transtorno Bipolar.", "Transtorno de Personalidade Borderline."],
+                answer: 1, // B
+                explanation: "A característica principal do Transtorno Delirante é o delírio sistematizado (frequentemente não bizarro) sem a deterioração global ou alucinações bizarras típicas da esquizofrenia.",
+                level: "Esquizofrenia e Outros"
+            },
+            {
+                type: "objective",
+                question: "O conceito de 'Estigma' na loucura refere-se a:",
+                options: ["Uma marca física deixada pela doença mental.", "O tratamento humanizado oferecido pela reforma psiquiátrica.", "Preconceitos e estereótipos negativos associados ao doente mental, que levam à exclusão social.", "A capacidade do paciente de superar a doença."],
+                answer: 2, // C
+                explanation: "O estigma social gera exclusão e dificulta a reabilitação, sendo uma marca social negativa construída historicamente sobre a figura do 'louco'.",
+                level: "Ética e Sociedade"
+            },
+            {
+                type: "objective",
+                question: "Na psicopatologia fenomenológica, a 'Espacialidade' no modo de ser psicótico é frequentemente descrita como:",
+                options: ["Expandida, com o paciente sentindo-se conectado a todo o universo.", "Encolhida ou restrita, com o mundo percebido invadindo o espaço pessoal (perda de limites).", "Inalterada, igual à de uma pessoa saudável.", "Focada apenas em objetos distantes."],
+                answer: 1, // B
+                explanation: "A fenomenologia descreve o mundo do psicótico muitas vezes como ameaçadoramente próximo ou invadindo os limites do Eu (perda das fronteiras do Eu), restringindo seu espaço existencial.",
+                level: "Fenomenologia"
+            },
+            {
+                type: "objective",
+                question: "A 'Fuga de Ideias' é uma alteração do curso do pensamento tipicamente associada a qual quadro clínico?",
+                options: ["Depressão grave.", "Demência de Alzheimer.", "Episódio Maníaco (Transtorno Bipolar).", "Transtorno Obsessivo-Compulsivo."],
+                answer: 2, // C
+                explanation: "A aceleração do pensamento a ponto de perder o fio da meada (fuga de ideias), mudando rapidamente de assunto, é típica da Mania (Taquipsiquismo extremo).",
+                level: "Pensamento"
+            },
+            {
+                type: "objective",
+                question: "Qual é a diferença fundamental entre 'Medo' e 'Ansiedade' (conceito básico de afetividade)?",
+                options: ["O medo é uma reação a um perigo real e imediato; a ansiedade é um temor difuso, muitas vezes sem objeto definido ou voltado ao futuro.", "O medo é patológico; a ansiedade é normal.", "O medo ocorre na psicose; a ansiedade na neurose.", "Não há diferença, são sinônimos."],
                 answer: 0, // A
-                userAnswer: null,
-                level: "Percepção"
+                explanation: "Esta é a diferenciação clássica: Medo tem objeto definido e atual (perigo real); Ansiedade é uma antecipação apreensiva de perigo futuro ou indefinido.",
+                level: "Afetividade"
             },
             {
                 type: "objective",
-                question: "Atribuir a um colega um sentimento de insegurança que, na verdade, é seu, é um exemplo de:",
-                options: [
-                    "Estereótipo",
-                    "Projeção",
-                    "Efeito de Halo",
-                    "Percepção Seletiva",
-                    "Efeito de Recência"
-                ],
+                question: "O 'Embotamento Afetivo', sintoma negativo da esquizofrenia, é definido como:",
+                options: ["Uma tristeza profunda e choro fácil.", "Uma variação rápida do humor (labilidade).", "Uma redução severa na expressão e na reatividade emocional (indiferença aparente).", "Uma resposta emocional desproporcional e exagerada (ex: rir de uma tragédia)."],
+                answer: 2, // C
+                explanation: "No embotamento, o paciente parece indiferente, com pouca modulação facial ou vocal e redução da capacidade de expressar emoções.",
+                level: "Afetividade"
+            },
+            {
+                type: "objective",
+                question: "Sobre a Ética na Psicopatologia, discutida nas primeiras aulas, é fundamental que o psicólogo:",
+                options: ["Priorize o rótulo diagnóstico acima da história de vida do sujeito.", "Utilize o diagnóstico como ferramenta para compreender o sofrimento, sem estigmatizar ou reduzir o sujeito à doença.", "Compartilhe as informações do paciente com familiares sem consentimento, visando o bem-estar.", "Tente 'normalizar' o paciente para que ele se encaixe nos padrões estatísticos da sociedade a qualquer custo."],
                 answer: 1, // B
-                userAnswer: null,
-                level: "Percepção"
+                explanation: "O diagnóstico deve servir ao tratamento e compreensão, não para rotular. A ética exige olhar para o sujeito para além do sintoma.",
+                level: "Ética"
             },
             {
                 type: "objective",
-                question: "Por que o estudo da motivação é relevante para as organizações?",
-                options: [
-                    "Porque a lei exige.",
-                    "Para aumentar a competição negativa entre os funcionários.",
-                    "Porque pessoas motivadas são mais produtivas e comprometidas.",
-                    "Para reduzir os salários sem afetar a produção.",
-                    "Porque a motivação é um traço fixo e imutável."
-                ],
-                answer: 2, // C
-                userAnswer: null,
-                level: "Motivação"
-            },
-            {
-                type: "objective",
-                question: "O estilo de liderança \"Laissez-faire\" é sinônimo de:",
-                options: [
-                    "Autocrático",
-                    "Democrático",
-                    "Transformacional",
-                    "Liberal",
-                    "Transacional"
-                ],
-                answer: 3, // D
-                userAnswer: null,
-                level: "Liderança"
-            },
-            {
-                type: "objective",
-                question: "Prestar atenção apenas nos dados que confirmam uma opinião já formada é um exemplo de:",
-                options: [
-                    "Projeção",
-                    "Efeito de Halo",
-                    "Percepção Seletiva",
-                    "Estereótipo",
-                    "Efeito de Recência"
-                ],
-                answer: 2, // C
-                userAnswer: null,
-                level: "Percepção"
-            },
-            {
-                type: "objective",
-                question: "Um líder que consulta a equipe antes de tomar decisões importantes adota um estilo:",
-                options: [
-                    "Autocrático",
-                    "Liberal",
-                    "Transacional",
-                    "Democrático",
-                    "Transformacional"
-                ],
-                answer: 3, // D
-                userAnswer: null,
-                level: "Liderança"
-            },
-            {
-                type: "objective",
-                question: "Motivação é o processo responsável pela _______, _______ e _______ dos esforços de uma pessoa.",
-                options: [
-                    "Causa, efeito e consequência.",
-                    "Intensidade, direção e persistência.",
-                    "Rapidez, força e agilidade.",
-                    "Análise, síntese e avaliação.",
-                    "Ideia, execução e finalização."
-                ],
+                question: "O termo 'Juízo de Realidade' refere-se à capacidade de:",
+                options: ["Ter uma memória fotográfica dos eventos.", "Avaliar corretamente o mundo externo e distinguir entre fantasia interna e realidade externa.", "Julgar moralmente o comportamento dos outros.", "Ter um nível de inteligência acima da média."],
                 answer: 1, // B
-                userAnswer: null,
-                level: "Motivação"
+                explanation: "Juízo de realidade é a função crítica que permite saber o que é real e o que é imaginação. Sua perda ou grave distorção define a psicose.",
+                level: "Juízo"
             },
             {
                 type: "objective",
-                question: "Se um gerente avalia um funcionário com base apenas no seu desempenho na última semana antes da avaliação, ele está sendo influenciado pelo:",
-                options: [
-                    "Efeito de Halo",
-                    "Estereótipo",
-                    "Efeito de Recência",
-                    "Projeção",
-                    "Percepção Seletiva"
-                ],
-                answer: 2, // C
-                userAnswer: null,
-                level: "Percepção"
-            },
-            {
-                type: "objective",
-                question: "Qual das teorias abaixo NÃO foi mencionada no material como uma \"Ferramenta para Motivação\"?",
-                options: [
-                    "Teoria das Necessidades",
-                    "Teoria dos Dois Fatores",
-                    "Teoria do Caos",
-                    "Teoria X e Y",
-                    "Condicionamento"
-                ],
-                answer: 2, // C
-                userAnswer: null,
-                level: "Motivação"
-            },
-            {
-                type: "objective",
-                question: "Como a distorção perceptiva pode afetar negativamente a avaliação de desempenho?",
-                options: [
-                    "Garantindo uma avaliação justa e imparcial.",
-                    "Fazendo com que o julgamento seja influenciado por simpatia ou afinidade.",
-                    "Focando apenas em resultados mensuráveis.",
-                    "Eliminando qualquer tipo de viés.",
-                    "A percepção não interfere na avaliação de desempenho."
-                ],
+                question: "Nos slides sobre Psicopatologia Psicanalítica, menciona-se que a 'Representação Social' tem um papel importante. Em relação à loucura, ela:",
+                options: ["É sempre positiva e acolhedora.", "Frequentemente carrega o medo do 'descontrole' e da 'desrazão', servindo para separar o 'nós' (sãos) dos 'eles' (loucos).", "Não influencia o tratamento do paciente.", "É baseada puramente em evidências científicas biológicas."],
                 answer: 1, // B
-                userAnswer: null,
-                level: "Percepção"
+                explanation: "A sociedade constrói uma representação do louco para se proteger da angústia da 'desrazão', gerando exclusão e servindo de depósito para o que a sociedade rejeita.",
+                level: "Sociedade e Cultura"
             },
             {
                 type: "objective",
-                question: "Um líder transacional estaria mais propenso a dizer:",
-                options: [
-                    "\"Pensem em novas formas de resolver este problema.\"",
-                    "\"Se vocês baterem a meta, receberão um bônus.\"",
-                    "\"Façam como acharem melhor.\"",
-                    "\"A decisão final é minha e não se discute.\"",
-                    "\"Vamos trabalhar juntos para nos sentirmos mais motivados.\""
-                ],
+                question: "A distinção entre Neurose e Psicose (diagnóstico estrutural) envolve, principalmente:",
+                options: ["A gravidade dos sintomas físicos.", "A relação com a realidade (preservada na neurose, rompida/alterada na psicose).", "A idade de início (psicose só em crianças).", "O nível de inteligência (baixo na neurose)."],
                 answer: 1, // B
-                userAnswer: null,
-                level: "Liderança"
+                explanation: "Na neurose, a realidade é percebida, mas conflituosa (recalcamento). Na psicose, a realidade é rejeitada e remodelada (delírio/alucinação) com ruptura do juízo.",
+                level: "Estruturas Clínicas"
             },
             {
                 type: "objective",
-                question: "O ambiente de trabalho e o contexto cultural são exemplos de:",
-                options: [
-                    "Fatores do Percebedor",
-                    "Fatores do Objeto",
-                    "Fatores da Situação",
-                    "Fatores de Distorção",
-                    "Fatores de Motivação"
-                ],
-                answer: 2, // C
-                userAnswer: null,
-                level: "Percepção"
+                question: "A pseudoalucinação diferencia-se da representação mental comum (imaginação) porque:",
+                options: ["A pseudoalucinação tem nitidez e vivacidade sensorial (corporeidade), embora seja percebida no espaço interno.", "A imaginação é sempre patológica.", "A pseudoalucinação ocorre no espaço externo (alucinação verdadeira).", "A pseudoalucinação é voluntária, o paciente cria quando quer."],
+                answer: 0, // A
+                explanation: "Diferente da simples imaginação, a pseudoalucinação tem força sensorial e autonomia, mas é vista com os 'olhos da mente' (espaço interno), diferente da alucinação verdadeira (espaço externo).",
+                level: "Sensopercepção"
+            },
+            {
+                type: "objective",
+                question: "Quando se fala em 'Desorganização' na Esquizofrenia, refere-se a:",
+                options: ["Falta de higiene pessoal apenas.", "Desorganização do pensamento (discurso incoerente, 'salada de palavras') e do comportamento (bizarro, sem propósito).", "Esquecimento de compromissos.", "Bagunça no quarto do paciente."],
+                answer: 1, // B
+                explanation: "A desorganização é um dos critérios chave da esquizofrenia, manifestando-se na fala incoerente (perda de associações) e atos motores sem finalidade clara.",
+                level: "Esquizofrenia"
+            },
+            {
+                type: "objective",
+                question: "O critério de 'Normalidade Funcional' considera patológico aquilo que:",
+                options: ["É estatisticamente raro.", "Gera sofrimento e disfunção, impedindo o indivíduo de realizar suas atividades e potenciais.", "Desvia das normas morais religiosas.", "É diferente do comportamento do terapeuta."],
+                answer: 1, // B
+                explanation: "O critério funcional/adaptativo não foca na frequência, mas sim no prejuízo causado pelo sintoma na vida do sujeito e sua capacidade de adaptação/realização.",
+                level: "Normalidade"
             }
         ];
 
         // Variáveis de estado
         let currentQuestion = 0;
         let score = 0;
+        // Armazena as respostas do usuário
+        questions.forEach(q => {
+            q.userAnswer = null;
+            q.correct = undefined;
+        });
         
         // Elementos DOM
         const questionContainer = document.getElementById('question-container');
@@ -777,13 +758,13 @@
             
             // Mensagem personalizada baseada na pontuação
             if (score >= 80) {
-                resultMessage.textContent = "Excelente! Você demonstrou um ótimo domínio dos conceitos.";
+                resultMessage.textContent = "Excelente! Você demonstrou um ótimo domínio da Psicopatologia.";
             } else if (score >= 60) {
-                resultMessage.textContent = "Bom trabalho! Você tem uma boa compreensão da matéria, mas pode melhorar em alguns aspectos.";
+                resultMessage.textContent = "Bom trabalho! Você tem uma boa compreensão da matéria, mas revise alguns conceitos.";
             } else if (score >= 40) {
-                resultMessage.textContent = "Está no caminho certo! Revise os conceitos principais para reforçar seu aprendizado.";
+                resultMessage.textContent = "Está no caminho certo! Reforce os estudos em semiologia e estruturas clínicas.";
             } else {
-                resultMessage.textContent = "Continue estudando! Reveja os materiais e tente novamente para melhorar seu desempenho.";
+                resultMessage.textContent = "Continue estudando! Reveja os materiais e tente novamente para fixar os conceitos.";
             }
             
             // Detalhes dos resultados
@@ -792,11 +773,21 @@
             questions.forEach((q, index) => {
                 detailsHTML += `
                     <div class="result-item ${q.correct ? 'correct' : 'incorrect'}">
-                        <div class="result-status">${index + 1}</div>
-                        <div>
-                            <strong>Questão ${index + 1}:</strong> ${q.level}
-                            <div>${q.correct ? 'Resposta Correta' : 'Resposta Incorreta'}</div>
-                            ${!q.correct ? `<div><strong>Sua resposta:</strong> ${q.userAnswer !== null ? String.fromCharCode(65 + q.userAnswer) : 'Nenhuma'}<br><strong>Resposta correta:</strong> ${String.fromCharCode(65 + q.answer)} - ${q.options[q.answer]}</div>` : ''}
+                        <div class="result-item-header">
+                            <div class="result-status">${index + 1}</div>
+                            <strong>Questão ${index + 1}:</strong>&nbsp;${q.level}
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">${q.question}</div>
+                        
+                        <div>${q.correct ? '<strong style="color:var(--correct)">Resposta Correta!</strong>' : '<strong style="color:var(--incorrect)">Resposta Incorreta.</strong>'}</div>
+                        
+                        ${!q.correct ? `<div><strong>Sua resposta:</strong> ${q.userAnswer !== null ? String.fromCharCode(65 + q.userAnswer) + ' - ' + q.options[q.userAnswer] : 'Nenhuma'}</div>` : ''}
+                        
+                        <div><strong>Gabarito:</strong> ${String.fromCharCode(65 + q.answer)} - ${q.options[q.answer]}</div>
+                        
+                        <div class="explanation-text">
+                            <strong><i class="fas fa-info-circle"></i> Explicação:</strong> ${q.explanation}
                         </div>
                     </div>
                 `;
