@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado - Liderança, Percepção e Motivação</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #1abc9c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --correct: #2ecc71;
+            --incorrect: #e74c3c;
+            --warning: #f39c12;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 25px 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .info-bar {
+            display: flex;
+            justify-content: space-around;
+            background: var(--dark);
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+        
+        .progress-container {
+            padding: 20px 30px;
+            background: var(--light);
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .question-container {
+            padding: 30px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .question-number {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .question-type {
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+            line-height: 1.8;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .option:hover {
+            border-color: var(--secondary);
+            background: rgba(52, 152, 219, 0.05);
+        }
+        
+        .option.selected {
+            border-color: var(--secondary);
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .option-letter {
+            background: var(--dark);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-prev {
+            background: #ddd;
+        }
+        
+        .btn-prev:hover {
+            background: #ccc;
+        }
+        
+        .btn-next {
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            color: white;
+        }
+        
+        .btn-next:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-submit {
+            background: linear-gradient(90deg, var(--correct), #27ae60);
+            color: white;
+        }
+        
+        .result-container {
+            padding: 30px;
+            text-align: center;
+            display: none;
+        }
+        
+        .result-header {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .score {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 20px 0;
+        }
+        
+        .result-details {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        
+        .result-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-status {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .correct .result-status {
+            background: var(--correct);
+        }
+        
+        .incorrect .result-status {
+            background: var(--incorrect);
+        }
+        
+        .restart-btn {
+            background: linear-gradient(90deg, var(--primary), var(--dark));
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+        
+        .restart-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { border-radius: 15px; }
+            header h1 { font-size: 1.8rem; }
+            .info-bar { flex-direction: column; gap: 10px; text-align: center; }
+            .question-container { padding: 20px; }
+            .question-text { font-size: 1.1rem; }
+            .btn { padding: 10px 20px; font-size: 1rem; }
+            .score { font-size: 3rem; }
+        }
+        
+        @media (max-width: 480px) {
+            header { padding: 20px 15px; }
+            .question-header { flex-direction: column; gap: 15px; align-items: flex-start; }
+            .buttons-container { flex-direction: column; gap: 10px; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-brain"></i> Simulado - Liderança, Percepção e Motivação</h1>
+            <p>Avalie seus conhecimentos sobre Liderança, Percepção e Motivação no ambiente de trabalho.</p>
+        </header>
+        
+        <div class="info-bar">
+            <div><i class="fas fa-users"></i> Comportamento Organizacional</div>
+            <div><i class="fas fa-graduation-cap"></i> 20 Questões Objetivas</div>
+        </div>
+        
+        <div class="progress-container">
+            <div>Progresso: <span id="progress-text">0%</span></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        
+        <div class="question-container" id="question-container">
+            </div>
+        
+        <div class="result-container" id="result-container">
+            <h2 class="result-header">Resultado do Simulado</h2>
+            <div class="score" id="final-score">0%</div>
+            <p id="result-message">Parabéns por completar o simulado! Veja seu desempenho abaixo:</p>
+            
+            <div class="result-details" id="result-details">
+                </div>
+            
+            <button class="btn restart-btn" id="restart-btn">
+                <i class="fas fa-redo"></i> Refazer Simulado
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Banco de questões
+        const questions = [
+            {
+                type: "objective",
+                question: "Qual estilo de liderança é caracterizado pela centralização das decisões no líder?",
+                options: [
+                    "Democrática",
+                    "Liberal",
+                    "Transformacional",
+                    "Autocrática",
+                    "Transacional"
+                ],
+                answer: 3, // D
+                userAnswer: null,
+                level: "Liderança"
+            },
+            {
+                type: "objective",
+                question: "A liderança que se baseia em um sistema de recompensas e punições é a:",
+                options: [
+                    "Democrática",
+                    "Transacional",
+                    "Transformacional",
+                    "Liberal",
+                    "Autocrática"
+                ],
+                answer: 1, // B
+                userAnswer: null,
+                level: "Liderança"
+            },
+            {
+                type: "objective",
+                question: "Segundo o material, qual é a principal função da liderança?",
+                options: [
+                    "Controlar rigidamente as tarefas da equipe.",
+                    "Manter a equipe satisfeita com o mínimo esforço.",
+                    "Ignorar os objetivos organizacionais para focar no bem-estar.",
+                    "Forçar a equipe a atingir metas a qualquer custo.",
+                    "Catalisar as energias do grupo para atingir e superar os objetivos."
+                ],
+                answer: 4, // E
+                userAnswer: null,
+                level: "Liderança"
+            },
+            {
+                type: "objective",
+                question: "Qual das seguintes características é apresentada como uma exigência para um líder?",
+                options: [
+                    "Insegurança",
+                    "Passividade",
+                    "Autoconfiança",
+                    "Desonestidade",
+                    "Conformismo"
+                ],
+                answer: 2, // C
+                userAnswer: null,
+                level: "Liderança"
+            },
+            {
+                type: "objective",
+                question: "Incentivar a equipe a \"pensar fora da caixa\" e buscar a autorrealização são traços da liderança:",
+                options: [
+                    "Autocrática",
+                    "Transacional",
+                    "Transformacional",
+                    "Liberal",
+                    "Democrática"
+                ],
+                answer: 2, // C
+                userAnswer: null,
+                level: "Liderança"
+            },
+            {
+                type: "objective",
+                question: "O que é percepção no contexto organizacional?",
+                options: [
+                    "Um fato objetivo e igual para todos.",
+                    "Um processo de interpretar as impressões sensoriais para dar sentido ao ambiente.",
+                    "Uma forma de adivinhar os pensamentos dos colegas.",
+                    "Apenas a visão, sem influência de outros sentidos.",
+                    "Um erro de julgamento que deve ser evitado a todo custo."
+                ],
+                answer: 1, // B
+                userAnswer: null,
+                level: "Percepção"
+            },
+            {
+                type: "objective",
+                question: "Valores e experiências anteriores são exemplos de qual fator que influencia a percepção?",
+                options: [
+                    "Fatores do Objeto",
+                    "Fatores da Situação",
+                    "Fatores do Percebedor",
+                    "Fatores Culturais",
+                    "Fatores Ambientais"
+                ],
+                answer: 2, // C
+                userAnswer: null,
+                level: "Percepção"
+            },
+            {
+                type: "objective",
+                question: "Formar uma opinião sobre uma pessoa baseando-se em generalizações sobre o seu gênero é um exemplo de:",
+                options: [
+                    "Efeito de Halo",
+                    "Projeção",
+                    "Estereótipo",
+                    "Percepção Seletiva",
+                    "Efeito de Primazia"
+                ],
+                answer: 2, // C
+                userAnswer: null,
+                level: "Percepção"
+            },
+            {
+                type: "objective",
+                question: "Um gestor que acredita que um funcionário é excelente em todas as tarefas só porque ele se veste bem está sob a influência do:",
+                options: [
+                    "Efeito de Halo",
+                    "Efeito de Recência",
+                    "Estereótipo",
+                    "Projeção",
+                    "Percepção Seletiva"
+                ],
+                answer: 0, // A
+                userAnswer: null,
+                level: "Percepção"
+            },
+            {
+                type: "objective",
+                question: "Atribuir a um colega um sentimento de insegurança que, na verdade, é seu, é um exemplo de:",
+                options: [
+                    "Estereótipo",
+                    "Projeção",
+                    "Efeito de Halo",
+                    "Percepção Seletiva",
+                    "Efeito de Recência"
+                ],
+                answer: 1, // B
+                userAnswer: null,
+                level: "Percepção"
+            },
+            {
+                type: "objective",
+                question: "Por que o estudo da motivação é relevante para as organizações?",
+                options: [
+                    "Porque a lei exige.",
+                    "Para aumentar a competição negativa entre os funcionários.",
+                    "Porque pessoas motivadas são mais produtivas e comprometidas.",
+                    "Para reduzir os salários sem afetar a produção.",
+                    "Porque a motivação é um traço fixo e imutável."
+                ],
+                answer: 2, // C
+                userAnswer: null,
+                level: "Motivação"
+            },
+            {
+                type: "objective",
+                question: "O estilo de liderança \"Laissez-faire\" é sinônimo de:",
+                options: [
+                    "Autocrático",
+                    "Democrático",
+                    "Transformacional",
+                    "Liberal",
+                    "Transacional"
+                ],
+                answer: 3, // D
+                userAnswer: null,
+                level: "Liderança"
+            },
+            {
+                type: "objective",
+                question: "Prestar atenção apenas nos dados que confirmam uma opinião já formada é um exemplo de:",
+                options: [
+                    "Projeção",
+                    "Efeito de Halo",
+                    "Percepção Seletiva",
+                    "Estereótipo",
+                    "Efeito de Recência"
+                ],
+                answer: 2, // C
+                userAnswer: null,
+                level: "Percepção"
+            },
+            {
+                type: "objective",
+                question: "Um líder que consulta a equipe antes de tomar decisões importantes adota um estilo:",
+                options: [
+                    "Autocrático",
+                    "Liberal",
+                    "Transacional",
+                    "Democrático",
+                    "Transformacional"
+                ],
+                answer: 3, // D
+                userAnswer: null,
+                level: "Liderança"
+            },
+            {
+                type: "objective",
+                question: "Motivação é o processo responsável pela _______, _______ e _______ dos esforços de uma pessoa.",
+                options: [
+                    "Causa, efeito e consequência.",
+                    "Intensidade, direção e persistência.",
+                    "Rapidez, força e agilidade.",
+                    "Análise, síntese e avaliação.",
+                    "Ideia, execução e finalização."
+                ],
+                answer: 1, // B
+                userAnswer: null,
+                level: "Motivação"
+            },
+            {
+                type: "objective",
+                question: "Se um gerente avalia um funcionário com base apenas no seu desempenho na última semana antes da avaliação, ele está sendo influenciado pelo:",
+                options: [
+                    "Efeito de Halo",
+                    "Estereótipo",
+                    "Efeito de Recência",
+                    "Projeção",
+                    "Percepção Seletiva"
+                ],
+                answer: 2, // C
+                userAnswer: null,
+                level: "Percepção"
+            },
+            {
+                type: "objective",
+                question: "Qual das teorias abaixo NÃO foi mencionada no material como uma \"Ferramenta para Motivação\"?",
+                options: [
+                    "Teoria das Necessidades",
+                    "Teoria dos Dois Fatores",
+                    "Teoria do Caos",
+                    "Teoria X e Y",
+                    "Condicionamento"
+                ],
+                answer: 2, // C
+                userAnswer: null,
+                level: "Motivação"
+            },
+            {
+                type: "objective",
+                question: "Como a distorção perceptiva pode afetar negativamente a avaliação de desempenho?",
+                options: [
+                    "Garantindo uma avaliação justa e imparcial.",
+                    "Fazendo com que o julgamento seja influenciado por simpatia ou afinidade.",
+                    "Focando apenas em resultados mensuráveis.",
+                    "Eliminando qualquer tipo de viés.",
+                    "A percepção não interfere na avaliação de desempenho."
+                ],
+                answer: 1, // B
+                userAnswer: null,
+                level: "Percepção"
+            },
+            {
+                type: "objective",
+                question: "Um líder transacional estaria mais propenso a dizer:",
+                options: [
+                    "\"Pensem em novas formas de resolver este problema.\"",
+                    "\"Se vocês baterem a meta, receberão um bônus.\"",
+                    "\"Façam como acharem melhor.\"",
+                    "\"A decisão final é minha e não se discute.\"",
+                    "\"Vamos trabalhar juntos para nos sentirmos mais motivados.\""
+                ],
+                answer: 1, // B
+                userAnswer: null,
+                level: "Liderança"
+            },
+            {
+                type: "objective",
+                question: "O ambiente de trabalho e o contexto cultural são exemplos de:",
+                options: [
+                    "Fatores do Percebedor",
+                    "Fatores do Objeto",
+                    "Fatores da Situação",
+                    "Fatores de Distorção",
+                    "Fatores de Motivação"
+                ],
+                answer: 2, // C
+                userAnswer: null,
+                level: "Percepção"
+            }
+        ];
+
+        // Variáveis de estado
+        let currentQuestion = 0;
+        let score = 0;
+        
+        // Elementos DOM
+        const questionContainer = document.getElementById('question-container');
+        const progressText = document.getElementById('progress-text');
+        const progressFill = document.getElementById('progress-fill');
+        const resultContainer = document.getElementById('result-container');
+        const finalScore = document.getElementById('final-score');
+        const resultDetails = document.getElementById('result-details');
+        const resultMessage = document.getElementById('result-message');
+        const restartBtn = document.getElementById('restart-btn');
+        
+        // Inicializar o simulado
+        function initQuiz() {
+            showQuestion();
+            updateProgress();
+        }
+        
+        // Mostrar questão atual
+        function showQuestion() {
+            const q = questions[currentQuestion];
+            
+            let questionHTML = `
+                <div class="question-header">
+                    <div class="question-number">${currentQuestion + 1}</div>
+                    <div class="question-type">Questão Objetiva • ${q.level}</div>
+                </div>
+                <div class="question-text">${q.question}</div>
+            `;
+            
+            questionHTML += '<div class="options-container">';
+            q.options.forEach((option, index) => {
+                const selected = q.userAnswer === index ? 'selected' : '';
+                questionHTML += `
+                    <div class="option ${selected}" data-index="${index}">
+                        <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                        <div class="option-text">${option}</div>
+                    </div>
+                `;
+            });
+            questionHTML += '</div>';
+            
+            questionHTML += `
+                <div class="buttons-container">
+                    <button class="btn btn-prev" id="prev-btn" ${currentQuestion === 0 ? 'disabled' : ''}>
+                        <i class="fas fa-arrow-left"></i> Anterior
+                    </button>
+            `;
+            
+            if (currentQuestion < questions.length - 1) {
+                questionHTML += `
+                    <button class="btn btn-next" id="next-btn">
+                        Próxima <i class="fas fa-arrow-right"></i>
+                    </button>
+                `;
+            } else {
+                questionHTML += `
+                    <button class="btn btn-submit" id="submit-btn">
+                        <i class="fas fa-check-circle"></i> Finalizar Simulado
+                    </button>
+                `;
+            }
+            
+            questionHTML += '</div>';
+            
+            questionContainer.innerHTML = questionHTML;
+            
+            // Adicionar eventos
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    option.classList.add('selected');
+                    q.userAnswer = parseInt(option.dataset.index);
+                });
+            });
+            
+            document.getElementById('prev-btn').addEventListener('click', prevQuestion);
+            
+            if (currentQuestion < questions.length - 1) {
+                document.getElementById('next-btn').addEventListener('click', nextQuestion);
+            } else {
+                document.getElementById('submit-btn').addEventListener('click', finishQuiz);
+            }
+        }
+        
+        // Atualizar barra de progresso
+        function updateProgress() {
+            const answered = questions.filter(q => q.userAnswer !== null).length;
+            const progress = (answered / questions.length) * 100;
+            progressText.textContent = `${Math.round(progress)}%`;
+            progressFill.style.width = `${progress}%`;
+        }
+        
+        // Navegar para a próxima questão
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                updateProgress();
+            }
+        }
+        
+        // Voltar para a questão anterior
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                updateProgress();
+            }
+        }
+        
+        // Finalizar o simulado e mostrar resultados
+        function finishQuiz() {
+            // Calcular pontuação
+            let objectiveScore = 0;
+            
+            questions.forEach((q) => {
+                if (q.userAnswer === q.answer) {
+                    q.correct = true;
+                    objectiveScore++;
+                } else {
+                    q.correct = false;
+                }
+            });
+            
+            const maxObjective = questions.length;
+            score = Math.round((objectiveScore / maxObjective) * 100);
+            
+            // Exibir resultados
+            showResults();
+        }
+        
+        // Mostrar tela de resultados
+        function showResults() {
+            questionContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+            
+            finalScore.textContent = `${score}%`;
+            
+            // Mensagem personalizada baseada na pontuação
+            if (score >= 80) {
+                resultMessage.textContent = "Excelente! Você demonstrou um ótimo domínio dos conceitos.";
+            } else if (score >= 60) {
+                resultMessage.textContent = "Bom trabalho! Você tem uma boa compreensão da matéria, mas pode melhorar em alguns aspectos.";
+            } else if (score >= 40) {
+                resultMessage.textContent = "Está no caminho certo! Revise os conceitos principais para reforçar seu aprendizado.";
+            } else {
+                resultMessage.textContent = "Continue estudando! Reveja os materiais e tente novamente para melhorar seu desempenho.";
+            }
+            
+            // Detalhes dos resultados
+            let detailsHTML = '';
+            
+            questions.forEach((q, index) => {
+                detailsHTML += `
+                    <div class="result-item ${q.correct ? 'correct' : 'incorrect'}">
+                        <div class="result-status">${index + 1}</div>
+                        <div>
+                            <strong>Questão ${index + 1}:</strong> ${q.level}
+                            <div>${q.correct ? 'Resposta Correta' : 'Resposta Incorreta'}</div>
+                            ${!q.correct ? `<div><strong>Sua resposta:</strong> ${q.userAnswer !== null ? String.fromCharCode(65 + q.userAnswer) : 'Nenhuma'}<br><strong>Resposta correta:</strong> ${String.fromCharCode(65 + q.answer)} - ${q.options[q.answer]}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            resultDetails.innerHTML = detailsHTML;
+        }
+        
+        // Reiniciar o simulado
+        function restartQuiz() {
+            // Resetar estado
+            currentQuestion = 0;
+            score = 0;
+            
+            // Resetar respostas
+            questions.forEach(q => {
+                q.userAnswer = null;
+                q.correct = undefined;
+            });
+            
+            // Mostrar primeira questão
+            questionContainer.style.display = 'flex';
+            resultContainer.style.display = 'none';
+            showQuestion();
+            updateProgress();
+        }
+        
+        // Event Listeners
+        restartBtn.addEventListener('click', restartQuiz);
+        
+        // Iniciar o simulado
+        initQuiz();
+    </script>
+</body>
+</html>
